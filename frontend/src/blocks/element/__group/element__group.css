@@ -1,0 +1,10 @@
+.element__group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 282px;
+    padding-right: 20px;
+    background: #FFFFFF;
+    border-radius: 0 0 10px 10px;
+ }
+

@@ -1,0 +1,18 @@
+.root {
+    width: 100%;
+    max-width: 1280px;
+    min-height: 100vh;
+    box-sizing: border-box;
+    margin: 0 auto;
+    padding: 0;
+    color: rgba(255, 255, 255, 1);
+    background-color: #000000;
+    font-family: 'Inter', 'Arial', sans-serif;
+    align-content: center;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }

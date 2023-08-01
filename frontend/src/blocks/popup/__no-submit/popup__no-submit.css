@@ -1,0 +1,8 @@
+.popup__no-submit {
+    border: 1px solid #000000;
+    border-radius: 2px;
+    background-color: white;
+    opacity: .2;
+    color: black;
+    pointer-events: none;
+}

@@ -1,0 +1,19 @@
+.element__logo {
+    max-width: 22px;
+    height: 19px;
+    padding: 0 24px 0 0;
+    background-image: url(../../../images/Stroke.svg);
+    background-repeat: no-repeat;
+    object-fit: cover;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+}
+
+.element__logo:hover {
+    background-image: url(../../../images/hover.svg);
+}
+
+.element__logo_active {
+    background-image: url(../../../images/activ.svg);
+}
