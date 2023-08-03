@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 
 
-function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
+function AddPlacePopup({ isOpen, onClose, onAddPlace, renderLoading }) {
   const cardNameRef = useRef(null)
   const cardLinkRef = useRef(null)
 
@@ -12,6 +12,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       name: cardNameRef.current.value,
       link: cardLinkRef.current.value
     })
+    event.target.reset();
   }
 
   return (
@@ -21,7 +22,8 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
-      buttonText={"Создать"}
+      renderLoading={renderLoading}
+      buttonText={"Сохранить"}
     >
       <input
         className="popup__name popup__name_input_title"

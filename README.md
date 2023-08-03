@@ -9,8 +9,8 @@
 
 ## Ссылки на проект
 
-IP-адрес x.x.x.x
+IP-адрес 158.160.97.201
 
-Frontend https://...
+Frontend https://domainname.students.nomoreparties.co/
 
-Backend https://...
+Backend https://another.domainname.students.nomoreparties.co/

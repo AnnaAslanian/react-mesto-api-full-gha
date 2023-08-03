@@ -1,3 +1,4 @@
+const { NODE_ENV, JWT_SECRET } = process.env;
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
@@ -27,9 +28,7 @@ const createUser = (req, res, next) => {
         email,
         password: hashedPassword,
       })
-        .then((user) => {
-          res.status(CREATED).send(user);
-        })
+        .then((user) => res.status(CREATED).send(user))
         .catch((error) => {
           if (error.name === 'ValidationError') {
             next(new BadRequestError('Переданы некорректные данные при создании пользователя'));
@@ -51,16 +50,17 @@ const login = (req, res, next) => {
       bcrypt.compare(String(password), user.password)
         .then((isValidUser) => {
           if (isValidUser) {
-            const token = jwt.sign({
-              _id: user._id,
-              expiresIn: '7d',
-            }, 'very-secret-key');
+            const token = jwt.sign(
+              { _id: user._id },
+              NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+              { expiresIn: '7d' },
+            );
             res.cookie('token', token, {
               maxAge: 3600000 * 24 * 7,
               httpOnly: true,
               sameSite: true,
             });
-            res.send({ data: user.toJSON() });
+            res.send({ token });
           } else {
             throw new UnauthorizedError('Введены неправильные данные для входа');
           }

@@ -1,9 +1,12 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
-const cors = require('cors');
+// const cors = require('cors');
+// eslint-disable-next-line import/no-unresolved, import/extensions
+const cors = require('./middlwares/cors');
 const handleError = require('./middlwares/errors');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlwares/logger');
@@ -16,6 +19,7 @@ const { createUser, login } = require('./controllers/users');
 const auth = require('./middlwares/auth');
 const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
+const { URL } = require('./utils/constants');
 
 app.use(express.json());
 app.use(helmet());
@@ -23,29 +27,26 @@ app.use(cookieParser());
 
 app.use(limiter);
 app.use(requestLogger);
-const allowedCors = ['http://domainname.students.nomoreparties.co', 'http://localhost:3000'];
+// const allowedCors = ['http://domainname.students.nomoreparties.co', 'http://localhost:3000'];
 
-const corsOptions = {
-  origin: allowedCors,
-  optionsSuccessStatus: 200,
-  credentials: true,
-};
-app.use(cors(corsOptions));
-
-// app.use(limiter);
-// app.use(requestLogger);
-// app.use(cors({
-//   origin: ['http://localhost:3001', 'http://backend.domainname.nomoreparties.co'],
-//   methods: ['GET', 'PUT', 'POST', 'PATCH', 'DELETE'],
+// const corsOptions = {
+//   origin: allowedCors,
+//   optionsSuccessStatus: 200,
 //   credentials: true,
-//   maxAge: 30,
-// }));
+// };
+app.use(cors);
+
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
     name: Joi.string().min(2).max(30),
     about: Joi.string().min(2).max(30),
-    avatar: Joi.string().regex(/^:?https?:\/\/(www\.)?[a-zA-Z\d-]+\.[\w\d\-.~:/?#[\]@!$&'()*+,;=]{2,}#?$/),
+    avatar: Joi.string().regex(URL),
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
   }),
@@ -62,14 +63,11 @@ app.use(auth);
 app.use('/users', usersRouter);
 app.use('/cards', cardsRouter);
 
-app.use(errorLogger);
-
-app.use(errors());
-
 app.use('*', (req, res, next) => {
   next(new NotFoundError('Страница не найдена'));
 });
 
+app.use(errorLogger);
 app.use(errors());
 app.use(handleError);
 

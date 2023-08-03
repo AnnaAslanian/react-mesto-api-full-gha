@@ -1,21 +1,38 @@
 import React, { useState } from "react";
+// import { useFormAction } from "react-router-dom";
 
 function Login({ onLogin, renderLoading }) {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
 
-  function handleEmail(event) {
-    setEmail(event.target.value);
-  }
-  function handlePassword(event) {
-    setPassword(event.target.value);
-  }
-  function handleSubmit(event) {
-    event.preventDefault();
-    onLogin(email, password);
+  // function handleEmail(event) {
+  //   setEmail(event.target.value);
+  // }
+  // function handlePassword(event) {
+  //   setPassword(event.target.value);
+  // }
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   onLogin(email, password);
+  // }
+  const [formValue, setFormValue] = useState({
+    email: "",
+    password: ""
+  })
+
+  const handleChangeLogged = (e) => {
+    const { name, value } = e.target
+    setFormValue({
+      ...formValue,
+      [name]: value
+    })
   }
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    onLogin(formValue)
+  }
 
   return (
     <div
@@ -36,9 +53,9 @@ function Login({ onLogin, renderLoading }) {
           className="register__input"
           type="email"
           placeholder="Email"
-          value={email}
+          value={formValue.email}
           name="email"
-          onChange={handleEmail}
+          onChange={handleChangeLogged}
         />
         <input
           id="register-password"
@@ -46,9 +63,9 @@ function Login({ onLogin, renderLoading }) {
           className="register__input"
           type="password"
           placeholder="Пароль"
-          value={password}
+          value={formValue.password}
           name="password"
-          onChange={handlePassword}
+          onChange={handleChangeLogged}
         />
         <button
           type="submit"

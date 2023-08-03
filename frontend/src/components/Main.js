@@ -24,7 +24,7 @@ function Main({ onEditProfile, onAddPlace, onEditAvatar, onCardClick, onCardLike
       </div>
       <div className="elements">
         <ul className="elements__list">
-          {cards.map((card) => (
+        {cards.slice().reverse().map((card) => (
             <li key={card._id}>
               <Card card={card} onCardClick={onCardClick} onCardLike={onCardLike} onCardDelete={onCardDelete} handleDeleteCardClick={handleDeleteCardClick} />
             </li>

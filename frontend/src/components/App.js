@@ -50,13 +50,23 @@ function App() {
     setDeleteCardPopup(true)
   };
 
-
   useEffect(() => {
-    api
+    if (loggedIn) {
+      api
       .getInitialCards()
       .then((cards) => setCards(cards))
       .catch((err) => console.log(`Ошибка ${err}`))
-  }, []);
+}
+}, [loggedIn]);
+
+useEffect(() => {
+  if (loggedIn) {
+    api
+      .getInitialUser()
+      .then((userInfo) => setCurrentUser(userInfo))
+      .catch((err) => console.log(`Ошибка ${err}`))
+  }
+}, [loggedIn]);
 
   function closeAllPopups() {
     const allPopupStates = [
@@ -112,17 +122,9 @@ function App() {
       })
   };
 
-  useEffect(() => {
-    if (loggedIn) {
-      api
-        .getInitialUser()
-        .then((userInfo) => setCurrentUser(userInfo))
-        .catch((err) => console.log(`Ошибка ${err}`))
-    }
-  }, [loggedIn]);
-
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id)
+    const isLiked = card.likes.some((i) => (i._id || i) === currentUser._id)
+    console.log(isLiked)
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -143,9 +145,9 @@ function App() {
       })
   };
 
-  function handleLoginTrueStatus() {
-    setLoggedIn(true);
-  }
+  // function handleLoginTrueStatus() {
+  //   setLoggedIn(true);
+  // }
 
   const handleRegister = (email, password) => {
     setRenderLoading(true)
@@ -166,16 +168,16 @@ function App() {
       })
   }
 
-  const handleLogin = (email, password) => {
+  const handleLogin = (userInfo) => {
+    // console.log(userInfo)
     setRenderLoading(true)
     Auth
-      .authorization(email, password)
-      .then((data) => {
-        if (data.token) localStorage.setItem("token", data.token);
-        handleLoginTrueStatus();
-        setUserEmail(email);
+      .authorization(userInfo)
+      .then(() => {
+        // if (data.token) localStorage.setItem("token", data.token);
+        setLoggedIn(true);
+        setUserEmail(userInfo.email);
         navigate('/');
-
       })
       .catch((err) => {
         setSuccess(false);
@@ -193,8 +195,9 @@ function App() {
       Auth
         .tokenCheck(token)
         .then((res) => {
-          handleLoginTrueStatus();
-          setUserEmail(res.data.email);
+          setLoggedIn(true);
+          console.log(res.email)
+          setUserEmail(res.email);
           navigate("/");
         })
         .catch((err) => {
@@ -204,11 +207,21 @@ function App() {
     }
   }
 
+  // useEffect(() => {
+  //   tokenCheck();
+  // }, [ loggedIn ]);
+
+  // function onSignOut() {
+  //   localStorage.removeItem("token");
+  //   navigate('/sign-in')
+  // }
+
   useEffect(() => {
     tokenCheck();
-  }, []);
+  }, [loggedIn]);
 
   function onSignOut() {
+    setLoggedIn(false)
     localStorage.removeItem("token");
     navigate('/sign-in')
   }
