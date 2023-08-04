@@ -20,12 +20,6 @@ const usersRouter = require('./routes/users');
 const cardsRouter = require('./routes/cards');
 const { URL } = require('./utils/constants');
 
-app.use(express.json());
-app.use(helmet());
-app.use(cookieParser());
-
-app.use(limiter);
-app.use(requestLogger);
 const allowedCors = ['https://domainname.students.nomoreparties.co', 'http://localhost:3000'];
 
 const corsOptions = {
@@ -33,7 +27,15 @@ const corsOptions = {
   optionsSuccessStatus: 200,
   credentials: true,
 };
+
 app.use(cors(corsOptions));
+
+app.use(express.json());
+app.use(helmet());
+app.use(cookieParser());
+
+app.use(limiter);
+app.use(requestLogger);
 
 // app.use(cors);Валя
 
