@@ -4,9 +4,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
-// const cors = require('cors');
-// eslint-disable-next-line import/no-unresolved, import/extensions
-const cors = require('./middlwares/cors');
+const cors = require('cors');
+// const cors = require('./middlwares/cors');Валя
 const handleError = require('./middlwares/errors');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlwares/logger');
@@ -27,15 +26,15 @@ app.use(cookieParser());
 
 app.use(limiter);
 app.use(requestLogger);
-// const allowedCors = ['http://domainname.students.nomoreparties.co', 'http://localhost:3000'];
+const allowedCors = ['https://domainname.students.nomoreparties.co', 'http://localhost:3000'];
 
-// const corsOptions = {
-//   origin: allowedCors,
-//   optionsSuccessStatus: 200,
-//   credentials: true,
-// };
-app.use(cors);
-
+const corsOptions = {
+  origin: allowedCors,
+  optionsSuccessStatus: 200,
+  credentials: true,
+};
+app.use(cors(corsOptions));
+//app.use(cors);Валя
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
