@@ -85,7 +85,7 @@ useEffect(() => {
     api
       .getAddCard(data)
       .then((newCard) => {
-        setCards([newCard, ...cards])
+        setCards([...cards, newCard])
         closeAllPopups()
       })
       .catch((err) => console.log(`Ошибка ${err}`))
