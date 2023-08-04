@@ -5,7 +5,6 @@ const helmet = require('helmet');
 const cookieParser = require('cookie-parser');
 const { celebrate, Joi, errors } = require('celebrate');
 const cors = require('cors');
-// const cors = require('./middlwares/cors');Валя
 const handleError = require('./middlwares/errors');
 const NotFoundError = require('./errors/NotFoundError');
 const { requestLogger, errorLogger } = require('./middlwares/logger');
@@ -36,8 +35,6 @@ app.use(cookieParser());
 
 app.use(limiter);
 app.use(requestLogger);
-
-// app.use(cors);Валя
 
 app.get('/crash-test', () => {
   setTimeout(() => {

@@ -21,14 +21,21 @@ class Api {
   //     headers: this._headers
   //   }).then((res) => this._getResponse(res))
   // }
+  // getInitialCards() {
+  //   return fetch(this._url + "/cards", {
+  //     method: "GET",
+  //     headers: {
+  //       authorization: `Bearer ${localStorage.getItem("token")}`,
+  //       "content-type": "application/json"
+  //     }
+  //   }).then((res) => this._checkResponse(res))
+  // }
   getInitialCards() {
     return fetch(this._url + "/cards", {
       method: "GET",
-      headers: {
-        authorization: `Bearer ${localStorage.getItem("token")}`,
-        "content-type": "application/json"
-      }
-    }).then((res) => this._checkResponse(res))
+      credentials: 'include',
+      headers: this._headers
+    }).then((res) => this._getResponse(res))
   }
   getInitialUser() {
     return fetch(this._url + "/users/me", {
@@ -101,6 +108,10 @@ class Api {
 
 export const api = new Api({
   url: 'https://another.domainname.studen.nomoreparties.co',
+  headers: {
+    authorization: '',
+    "content-type": 'application/json',
+  },
    //url: "http://localhost:3000",
   //  headers: {
   //   authorization: '',
