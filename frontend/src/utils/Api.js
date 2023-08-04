@@ -92,7 +92,7 @@ class Api {
 
 export const api = new Api({
   url: 'https://another.domainname.studen.nomoreparties.co',
-  // url: "http://localhost:3000",
+   //url: "http://localhost:3000",
   headers: {
     authorization: ` Bearer ${localStorage.getItem("token")}`,
     "content-type": "application/json",
