@@ -169,7 +169,6 @@ useEffect(() => {
   }
 
   const handleLogin = (userInfo) => {
-    // console.log(userInfo)
     setRenderLoading(true)
     Auth
       .authorization(userInfo)
