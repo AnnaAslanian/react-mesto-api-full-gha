@@ -124,7 +124,6 @@ useEffect(() => {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => (i._id || i) === currentUser._id)
-    console.log(isLiked)
     api
       .changeLikeCardStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -144,10 +143,6 @@ useEffect(() => {
         setRenderLoading(false)
       })
   };
-
-  // function handleLoginTrueStatus() {
-  //   setLoggedIn(true);
-  // }
 
   const handleRegister = (email, password) => {
     setRenderLoading(true)
@@ -173,7 +168,6 @@ useEffect(() => {
     Auth
       .authorization(userInfo)
       .then(() => {
-        // if (data.token) localStorage.setItem("token", data.token);
         setLoggedIn(true);
         setUserEmail(userInfo.email);
         navigate('/');
@@ -195,7 +189,6 @@ useEffect(() => {
         .tokenCheck(token)
         .then((res) => {
           setLoggedIn(true);
-          console.log(res.email)
           setUserEmail(res.email);
           navigate("/");
         })
@@ -205,15 +198,6 @@ useEffect(() => {
         })
     }
   }
-
-  // useEffect(() => {
-  //   tokenCheck();
-  // }, [ loggedIn ]);
-
-  // function onSignOut() {
-  //   localStorage.removeItem("token");
-  //   navigate('/sign-in')
-  // }
 
   useEffect(() => {
     tokenCheck();

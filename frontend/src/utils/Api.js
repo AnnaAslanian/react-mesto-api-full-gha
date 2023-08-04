@@ -10,26 +10,7 @@ class Api {
     }
     return Promise.reject(`Ошибка: ${res.status}`)
   }
-  // getInitialCards() {
-  //   return fetch(this._url + "/cards", {
-  //     method: "GET",
-  //     credentials: 'include',
-  //     // headers: {
-  //     //   authorization: `Bearer ${localStorage.getItem("token")}`,
-  //     //   "content-type": "application/json"
-  //     // }Валя
-  //     headers: this._headers
-  //   }).then((res) => this._getResponse(res))
-  // }
-  // getInitialCards() {
-  //   return fetch(this._url + "/cards", {
-  //     method: "GET",
-  //     headers: {
-  //       authorization: `Bearer ${localStorage.getItem("token")}`,
-  //       "content-type": "application/json"
-  //     }
-  //   }).then((res) => this._checkResponse(res))
-  // }
+ 
   getInitialCards() {
     return fetch(this._url + "/cards", {
       method: "GET",
@@ -112,14 +93,4 @@ export const api = new Api({
     authorization: '',
     "content-type": 'application/json',
   },
-   //url: "http://localhost:3000",
-  //  headers: {
-  //   authorization: '',
-  //   "content-type": 'application/json',
-  // },
 });
-//   headers: {
-//     authorization: ` Bearer ${localStorage.getItem("token")}`,
-//     "content-type": "application/json",
-//   },
-// });Валя
