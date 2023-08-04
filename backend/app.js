@@ -34,7 +34,9 @@ const corsOptions = {
   credentials: true,
 };
 app.use(cors(corsOptions));
-//app.use(cors);Валя
+
+// app.use(cors);Валя
+
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');

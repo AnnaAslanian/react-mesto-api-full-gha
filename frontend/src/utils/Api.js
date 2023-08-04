@@ -17,7 +17,7 @@ class Api {
       // headers: {
       //   authorization: `Bearer ${localStorage.getItem("token")}`,
       //   "content-type": "application/json"
-      // }
+      // }Валя
       headers: this._headers
     }).then((res) => this._getResponse(res))
   }
