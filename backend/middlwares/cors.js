@@ -1,8 +1,8 @@
 const allowedCors = [
   'https://domainname.students.nomoreparties.co',
   'http://domainname.students.nomoreparties.co',
-  // 'https://another.domainname.studen.nomoreparties.co',
-  // 'http://another.domainname.studen.nomoreparties.co',
+  'https://another.domainname.studen.nomoreparties.co',
+  'http://another.domainname.studen.nomoreparties.co',
   'https://localhost:3000',
   'https://localhost:3001',
   'http://localhost:3000',
