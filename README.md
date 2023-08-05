@@ -13,4 +13,4 @@ IP 158.160.97.201
 
 Frontend https://domainname.students.nomoreparties.co
 
-Backend https://another.domainname.students.nomoreparties.co
+Backend https://another.domainname.studen.nomoreparties.co
