@@ -128,19 +128,19 @@ const updateUser = (req, res, next) => {
 
 const updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
-  const { userId } = req.user;
+  // const { userId } = req.user;
 
-  User.findByIdAndUpdate(
-    userId,
-    {
-      avatar,
-    },
-    {
-      new: true,
-      runValidators: true,
-    },
-  )
-  // User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
+  // User.findByIdAndUpdate(
+  //   userId,
+  //   {
+  //     avatar,
+  //   },
+  //   {
+  //     new: true,
+  //     runValidators: true,
+  //   },
+  // )
+  User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
   // User.findByIdAndUpdate(_id, data, {
   //   new: true,
   //   runValidators: true,
